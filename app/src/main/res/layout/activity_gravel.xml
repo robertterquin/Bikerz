@@ -106,6 +106,8 @@
                         android:textSize="10sp" />
 
                     <Button
+                        android:background="@drawable/cartbtn_design"
+                        android:layout_marginTop="5dp"
                         android:id="@+id/btn_gravel1"
                         android:layout_width="110sp"
                         android:layout_height="40sp"
@@ -156,6 +158,8 @@
                         android:textSize="10sp" />
 
                     <Button
+                        android:background="@drawable/cartbtn_design"
+                        android:layout_marginTop="5dp"
                         android:id="@+id/btn_gravel2"
                         android:layout_width="110sp"
                         android:layout_height="40sp"
@@ -206,6 +210,8 @@
                         android:textSize="10sp" />
 
                     <Button
+                        android:background="@drawable/cartbtn_design"
+                        android:layout_marginTop="5dp"
                         android:id="@+id/btn_gravel3"
                         android:layout_width="110sp"
                         android:layout_height="40sp"
@@ -256,6 +262,8 @@
                         android:textSize="10sp" />
 
                     <Button
+                        android:background="@drawable/cartbtn_design"
+                        android:layout_marginTop="5dp"
                         android:id="@+id/btn_gravel4"
                         android:layout_width="110sp"
                         android:layout_height="40sp"
