@@ -1,6 +1,7 @@
 package com.example.assignment2midterm;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,79 +14,65 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class FoldingActivity extends AppCompatActivity {
 
-    ImageView iv_cart;
-    Button btn_folding1, btn_folding2,btn_folding3, btn_folding4;
-    ArrayList<String> orders = new ArrayList<>();
-
+    ImageView iv_cart, backButton;
+    Button btn_folding1, btn_folding2, btn_folding3, btn_folding4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_folding);
+
+        // Apply window insets for a better UI layout
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-        ImageView backButton = findViewById(R.id.back_button);
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
-
+        // Initialize UI elements
         iv_cart = findViewById(R.id.iv_cart);
-        btn_folding1 = findViewById(R.id. btn_folding1);
+        backButton = findViewById(R.id.back_button);
+        btn_folding1 = findViewById(R.id.btn_folding1);
         btn_folding2 = findViewById(R.id.btn_folding2);
-        btn_folding3 = findViewById(R.id. btn_folding3);
-        btn_folding4 = findViewById(R.id. btn_folding4);
+        btn_folding3 = findViewById(R.id.btn_folding3);
+        btn_folding4 = findViewById(R.id.btn_folding4);
 
-        iv_cart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(FoldingActivity.this, ViewCart.class);
-                i.putExtra("orders",orders);
-                startActivity(i);
-            }
+        // Back Button Functionality
+        backButton.setOnClickListener(v -> onBackPressed());
+
+        // Open Cart Page
+        iv_cart.setOnClickListener(view -> {
+            Intent i = new Intent(FoldingActivity.this, ViewCart.class);
+            startActivity(i);
         });
 
-        btn_folding1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                orders.add("Dahon Suv D6 (Blue)");
-                Toast.makeText(FoldingActivity.this, "Dahon Suv D6 (Blue) has been added to the cart.", Toast.LENGTH_SHORT).show();
-            }
-        });
+        // Add items to cart
+        btn_folding1.setOnClickListener(view -> addToCart("Dahon Suv D6 (Blue)"));
+        btn_folding2.setOnClickListener(view -> addToCart("Dahon Suv D6 (White)"));
+        btn_folding3.setOnClickListener(view -> addToCart("Qix Jpn (Green)"));
+        btn_folding4.setOnClickListener(view -> addToCart("Vybe D7 Cloud (White)"));
+    }
 
-        btn_folding2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                orders.add("Dahon Suv D6 (White)");
-                Toast.makeText(FoldingActivity.this, "Dahon Suv D6 (White) has been added to the cart.", Toast.LENGTH_SHORT).show();
-            }
-        });
+    // Function to add items to SharedPreferences
+    private void addToCart(String item) {
+        SharedPreferences prefs = getSharedPreferences("MyCart", MODE_PRIVATE);
+        Set<String> cart = prefs.getStringSet("cart_items", new HashSet<>());
 
-        btn_folding3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                orders.add("Qix Jpn (Green)");
-                Toast.makeText(FoldingActivity.this, "Qix Jpn (Green) has been added to the cart.", Toast.LENGTH_SHORT).show();
-            }
-        });
+        // Ensure the cart maintains previous items
+        Set<String> updatedCart = new HashSet<>(cart);
+        updatedCart.add(item);
 
-        btn_folding4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                orders.add("Vybe D7 Cloud (White)");
-                Toast.makeText(FoldingActivity.this, "Vybe D7 Cloud (White) has been added to the cart.", Toast.LENGTH_SHORT).show();
-            }
-        });
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putStringSet("cart_items", updatedCart);
+        editor.apply();
+
+        // Confirmation message
+        Toast.makeText(this, item + " added to cart!", Toast.LENGTH_SHORT).show();
     }
 }

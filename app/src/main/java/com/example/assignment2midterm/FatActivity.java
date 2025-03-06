@@ -1,6 +1,7 @@
 package com.example.assignment2midterm;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,79 +14,65 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class FatActivity extends AppCompatActivity {
 
-    ImageView iv_cart;
-    Button btn_fat1, btn_fat2 ,btn_fat3, btn_fat4;
-    ArrayList<String> orders = new ArrayList<>();
+    ImageView iv_cart, backButton;
+    Button btn_fat1, btn_fat2, btn_fat3, btn_fat4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_fat);
+
+        // Apply window insets for better UI layout
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-        ImageView backButton = findViewById(R.id.back_button);
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
-
+        // Initialize UI elements
         iv_cart = findViewById(R.id.iv_cart);
-        btn_fat1 = findViewById(R.id. btn_fat1);
+        backButton = findViewById(R.id.back_button);
+        btn_fat1 = findViewById(R.id.btn_fat1);
         btn_fat2 = findViewById(R.id.btn_fat2);
-        btn_fat3 = findViewById(R.id. btn_fat3);
-        btn_fat4 = findViewById(R.id. btn_fat4);
+        btn_fat3 = findViewById(R.id.btn_fat3);
+        btn_fat4 = findViewById(R.id.btn_fat4);
 
-        iv_cart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(FatActivity.this, ViewCart.class);
-                i.putExtra("orders",orders);
-                startActivity(i);
-            }
+        // Back Button Functionality
+        backButton.setOnClickListener(v -> onBackPressed());
+
+        // Open Cart Page
+        iv_cart.setOnClickListener(view -> {
+            Intent i = new Intent(FatActivity.this, ViewCart.class);
+            startActivity(i);
         });
 
-        btn_fat1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                orders.add("Silverback Scoop");
-                Toast.makeText(FatActivity.this, "Silverback Scoop has been added to the cart.", Toast.LENGTH_SHORT).show();
-            }
-        });
+        // Add items to cart
+        btn_fat1.setOnClickListener(view -> addToCart("Silverback Scoop"));
+        btn_fat2.setOnClickListener(view -> addToCart("Scott Big Jon"));
+        btn_fat3.setOnClickListener(view -> addToCart("Zeus Fat Bike"));
+        btn_fat4.setOnClickListener(view -> addToCart("Alpha Fat Bike"));
+    }
 
-        btn_fat2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                orders.add("Scott Big Jon");
-                Toast.makeText(FatActivity.this, "Scott Big Jon has been added to the cart.", Toast.LENGTH_SHORT).show();
-            }
-        });
+    // Function to add items to SharedPreferences
+    private void addToCart(String item) {
+        SharedPreferences prefs = getSharedPreferences("MyCart", MODE_PRIVATE);
+        Set<String> cart = prefs.getStringSet("cart_items", new HashSet<>());
 
-        btn_fat3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                orders.add("Zeus Fat Bike");
-                Toast.makeText(FatActivity.this, "Zeus Fat Bike has been added to the cart.", Toast.LENGTH_SHORT).show();
-            }
-        });
+        // Ensure the cart maintains previous items
+        Set<String> updatedCart = new HashSet<>(cart);
+        updatedCart.add(item);
 
-        btn_fat4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                orders.add("Alpha Fat Bike");
-                Toast.makeText(FatActivity.this, "Alpha Fat Bike has been added to the cart.", Toast.LENGTH_SHORT).show();
-            }
-        });
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putStringSet("cart_items", updatedCart);
+        editor.apply();
 
+        // Confirmation message
+        Toast.makeText(this, item + " added to cart!", Toast.LENGTH_SHORT).show();
     }
 }
