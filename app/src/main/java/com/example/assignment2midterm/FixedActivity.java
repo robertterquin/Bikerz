@@ -28,14 +28,12 @@ public class FixedActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_fixed);
 
-        // Apply window insets for better UI layout
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-        // Initialize UI elements
         iv_cart = findViewById(R.id.iv_cart);
         backButton = findViewById(R.id.back_button);
         btn_fixed1 = findViewById(R.id.btn_fixed1);

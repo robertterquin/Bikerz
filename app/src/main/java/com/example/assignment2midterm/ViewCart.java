@@ -44,10 +44,8 @@ public class ViewCart extends AppCompatActivity {
         heartImageView = findViewById(R.id.iv_heart);
         btn_clearCart = findViewById(R.id.btn_clear_cart); // Clear Cart Button
 
-        // Back Button Functionality
         backButton.setOnClickListener(v -> onBackPressed());
 
-        // Heart Button (Favorite)
         heartImageView.setOnClickListener(v -> {
             if (isHeartFilled) {
                 heartImageView.setImageResource(R.drawable.hollow_heart);
@@ -57,18 +55,16 @@ public class ViewCart extends AppCompatActivity {
             isHeartFilled = !isHeartFilled;
         });
 
-        // Retrieve cart items from SharedPreferences
         SharedPreferences prefs = getSharedPreferences("MyCart", MODE_PRIVATE);
         Set<String> cartSet = prefs.getStringSet("cart_items", new HashSet<>());
-        order = new ArrayList<>(cartSet); // Convert Set to ArrayList for ListView
+        order = new ArrayList<>(cartSet);
 
-        // Populate ListView with cart items
         ArrayAdapter<String> myAdapter = new ArrayAdapter<>(ViewCart.this, android.R.layout.simple_list_item_1, order);
         lv_orders.setAdapter(myAdapter);
 
         btn_clearCart.setOnClickListener(v -> {
             SharedPreferences.Editor editor = prefs.edit();
-            editor.remove("cart_items"); // Remove all items from SharedPreferences
+            editor.remove("cart_items");
             editor.apply();
 
             order.clear();
