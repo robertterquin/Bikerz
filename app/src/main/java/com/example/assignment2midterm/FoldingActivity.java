@@ -3,9 +3,9 @@ package com.example.assignment2midterm;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -21,6 +21,7 @@ public class FoldingActivity extends AppCompatActivity {
 
     ImageView iv_cart, backButton;
     Button btn_folding1, btn_folding2, btn_folding3, btn_folding4;
+    TextView fb1_price, fb2_price, fb3_price, fb4_price;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,28 +42,32 @@ public class FoldingActivity extends AppCompatActivity {
         btn_folding3 = findViewById(R.id.btn_folding3);
         btn_folding4 = findViewById(R.id.btn_folding4);
 
-        backButton.setOnClickListener(v -> onBackPressed());
+        // 🔹 Get price TextViews
+        fb1_price = findViewById(R.id.fb1_price);
+        fb2_price = findViewById(R.id.fb2_price);
+        fb3_price = findViewById(R.id.fb3_price);
+        fb4_price = findViewById(R.id.fb4_price);
 
+        backButton.setOnClickListener(v -> onBackPressed());
 
         iv_cart.setOnClickListener(view -> {
             Intent i = new Intent(FoldingActivity.this, ViewCart.class);
             startActivity(i);
         });
 
-
-        btn_folding1.setOnClickListener(view -> addToCart("Dahon Suv D6 (Blue)"));
-        btn_folding2.setOnClickListener(view -> addToCart("Dahon Suv D6 (White)"));
-        btn_folding3.setOnClickListener(view -> addToCart("Qix Jpn (Green)"));
-        btn_folding4.setOnClickListener(view -> addToCart("Vybe D7 Cloud (White)"));
+        // 🔹 Add item with price to cart
+        btn_folding1.setOnClickListener(view -> addToCart("Dahon Suv D6 (Blue)", fb1_price.getText().toString()));
+        btn_folding2.setOnClickListener(view -> addToCart("Dahon Suv D6 (White)", fb2_price.getText().toString()));
+        btn_folding3.setOnClickListener(view -> addToCart("Qix Jpn (Green)", fb3_price.getText().toString()));
+        btn_folding4.setOnClickListener(view -> addToCart("Vybe D7 Cloud (White)", fb4_price.getText().toString()));
     }
 
-
-    private void addToCart(String item) {
+    private void addToCart(String item, String price) {
         SharedPreferences prefs = getSharedPreferences("MyCart", MODE_PRIVATE);
         Set<String> cart = prefs.getStringSet("cart_items", new HashSet<>());
 
         Set<String> updatedCart = new HashSet<>(cart);
-        updatedCart.add(item);
+        updatedCart.add(item + " - " + price); // Store name and price
 
         SharedPreferences.Editor editor = prefs.edit();
         editor.putStringSet("cart_items", updatedCart);

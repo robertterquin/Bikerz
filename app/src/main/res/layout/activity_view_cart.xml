@@ -45,29 +45,31 @@
 
     <ListView
         android:id="@+id/lv_orders"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="357dp"
+        android:layout_height="555dp"
         android:layout_marginTop="70dp"
-        android:scrollbars="vertical"
         android:clipToPadding="false"
         android:paddingVertical="8dp"
-        app:layout_constraintTop_toBottomOf="@id/constraintLayout"
+        android:scrollbars="vertical"
         app:layout_constraintBottom_toTopOf="@id/btn_clear_cart"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/constraintLayout"
+        app:layout_constraintVertical_bias="0.186" />
 
     <Button
         android:id="@+id/btn_clear_cart"
-        android:layout_width="238dp"
-        android:layout_height="48dp"
+        android:layout_width="240dp"
+        android:layout_height="39dp"
         android:background="@drawable/cartbtn_design"
         android:padding="10dp"
         android:text="Clear Cart"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/lv_orders"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.97" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

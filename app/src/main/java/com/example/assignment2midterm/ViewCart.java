@@ -1,9 +1,7 @@
 package com.example.assignment2midterm;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -33,6 +31,7 @@ public class ViewCart extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_view_cart);
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -55,19 +54,28 @@ public class ViewCart extends AppCompatActivity {
             isHeartFilled = !isHeartFilled;
         });
 
+        // Retrieve cart data
         SharedPreferences prefs = getSharedPreferences("MyCart", MODE_PRIVATE);
         Set<String> cartSet = prefs.getStringSet("cart_items", new HashSet<>());
         order = new ArrayList<>(cartSet);
 
+        // Ensure items are properly formatted
+        if (order.isEmpty()) {
+            order.add("Your cart is empty.");
+        }
+
+        // Display cart items in the ListView
         ArrayAdapter<String> myAdapter = new ArrayAdapter<>(ViewCart.this, android.R.layout.simple_list_item_1, order);
         lv_orders.setAdapter(myAdapter);
 
+        // Handle Clear Cart Button
         btn_clearCart.setOnClickListener(v -> {
             SharedPreferences.Editor editor = prefs.edit();
             editor.remove("cart_items");
             editor.apply();
 
             order.clear();
+            order.add("Your cart is empty.");
             myAdapter.notifyDataSetChanged();
 
             Toast.makeText(ViewCart.this, "Cart has been cleared!", Toast.LENGTH_SHORT).show();

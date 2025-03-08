@@ -97,6 +97,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/fb1_price"
                         android:layout_width="130dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
@@ -149,6 +150,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/fb2_price"
                         android:layout_width="122dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
@@ -199,6 +201,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/fb3_price"
                         android:layout_width="130dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
@@ -251,6 +254,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/fb4_price"
                         android:layout_width="122dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"

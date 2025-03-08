@@ -97,6 +97,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/rb1_price"
                         android:layout_width="130dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
@@ -150,6 +151,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/rb2_price"
                         android:layout_width="122dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
@@ -203,6 +205,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/rb3_price"
                         android:layout_width="127dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
@@ -255,6 +258,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/rb4_price"
                         android:layout_width="116dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"

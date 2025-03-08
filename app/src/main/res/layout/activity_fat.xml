@@ -97,6 +97,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/fat1_price"
                         android:layout_width="130dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
@@ -149,6 +150,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/fat2_price"
                         android:layout_width="122dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
@@ -199,6 +201,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/fat3_price"
                         android:layout_width="130dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
@@ -251,6 +254,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/fat4_price"
                         android:layout_width="122dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
