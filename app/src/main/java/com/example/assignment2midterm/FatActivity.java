@@ -42,7 +42,6 @@ public class FatActivity extends AppCompatActivity {
         btn_fat3 = findViewById(R.id.btn_fat3);
         btn_fat4 = findViewById(R.id.btn_fat4);
 
-        // 🔹 Get price TextViews
         fat1_price = findViewById(R.id.fat1_price);
         fat2_price = findViewById(R.id.fat2_price);
         fat3_price = findViewById(R.id.fat3_price);
